@@ -32,24 +32,38 @@ class EmployeePayrollData {
     return this.startDate;
   }
 
-  set id(id) {
-    this.id = id;
+  set changeId(id) {
+    if(id > 0)
+      this.id = id;
+    else 
+      throw "Id: " + id + " should be non zero positive"; 
   }
-  set name(name) {
-    let nameRegex = RegExp('^[A-Z]{1}[a-z]{3,}$');
-    if(nameRegex.test(name)){
+  set changeName(name) {
+    let nameRegex = RegExp('^[A-Z]{1}[a-z]{2,}$');
+    if(name.match(nameRegex)){
       this.name = name;
     }
-    else throw 'Name is incorrect';   
+    else 
+      throw "Name: " + name + " is incorrect";   
   }
-  set salary(salary) {
-    this.salary = salary;
+  set changeSalary(salary) {
+    if(salary > 0)
+      this.salary = salary;
+    else 
+      throw "Salary: " + salary + " should be non zero positive";
   }
-  set gender(gender) {
-    this.gender = gender;
+  set changeGender(gender) {
+    let genderRegex = RegExp('^[MF]$');
+    if (genderRegex.test(gender)) 
+      this.gender = gender;
+    else 
+      throw "Gender: " + gender +" is incorrect";
   }
-  set startDate(startDate) {
-    this.startDate = startDate;
+  set changeStartDate(startDate) {
+    if (startDate  <= new Date())
+      this.startDate = startDate;
+    else 
+      throw "Date : " + startDate + " is incorrect";
   }
 
   // method
@@ -64,12 +78,86 @@ class EmployeePayrollData {
 
 let employeePayrollData = new EmployeePayrollData(1, "Mark", 30000);
 console.log(employeePayrollData.toString());
+
+// Failure case of id
 try{
-  employeePayrollData.name = "John";
+  employeePayrollData.changeId = 0;
+}
+catch(e){
+  console.error(e);
+}
+
+try{
+  employeePayrollData.changeId = 5;
   console.log(employeePayrollData.toString());
 }
 catch(e){
   console.error(e);
 }
+
+// Failure case of name
+try{
+  employeePayrollData.changeName = "john";
+}
+catch(e){
+  console.error(e);
+}
+
+try{
+  employeePayrollData.changeName = "Akash";
+  console.log(employeePayrollData.toString());
+}
+catch(e){
+  console.error(e);
+}
+
+// Failure case of salary
+try{
+  employeePayrollData.changeSalary = -8956;
+}
+catch(e){
+  console.error(e);
+}
+
+try{
+  employeePayrollData.changeSalary = 965847;
+  console.log(employeePayrollData.toString());
+}
+catch(e){
+  console.error(e);
+}
+
+// Failure case of gender
+try{
+  employeePayrollData.changeGender = "X";
+}
+catch(e){
+  console.error(e);
+}
+
+try{
+  employeePayrollData.changeGender = "M";
+  console.log(employeePayrollData.toString());
+}
+catch(e){
+  console.error(e);
+}
+
+// Failure case of start date
+try{
+  employeePayrollData.changeStartDate = new Date("2021-04-11T10:20:30Z");
+}
+catch(e){
+  console.error(e);
+}
+
+try{
+  employeePayrollData.changeStartDate = new Date("2019-04-11T10:20:30Z");
+  console.log(employeePayrollData.toString());
+}
+catch(e){
+  console.error(e);
+}
+
 let newEmployeePayrollData = new EmployeePayrollData(2, "Terissa", 30000, "F" , new Date());
 console.log(newEmployeePayrollData.toString()); 
