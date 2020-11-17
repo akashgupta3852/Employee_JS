@@ -3,9 +3,9 @@
     const IS_ABSENT = 0;
     let empCheck = Math.floor(Math.random() * 10) % 2;
     if (empCheck == IS_ABSENT) {
-        console.log("Employee is Absent");
+        console.log("UC1 - Employee is Absent");
     } else {
-        console.log("Employee is Present");
+        console.log("UC1 - Employee is Present");
     }
 }
 
@@ -18,7 +18,7 @@ const WAGE_PER_HOUR = 20;
 let empCheck = Math.floor(Math.random() * 10) % 3;
 let empHrs = getWorkingHours(empCheck);
 let empWage = empHrs * WAGE_PER_HOUR;
-console.log("Employee Wage: " + empWage);
+console.log("UC2 - Employee Wage: " + empWage);
 
 // UC3 - Function for daily working Hours
 function getWorkingHours(empCheck) {
@@ -42,4 +42,17 @@ for (let day = 0; day < NUM_OF_WORKING_DAYS; day++) {
     empHrs += getWorkingHours(empCheck);
 }
 empWage = empHrs * WAGE_PER_HOUR;
-console.log("Total Hrs: " + empHrs + " Employee Wage: " + empWage);
+console.log("UC4 - Total Hrs: " + empHrs + " Employee Wage: " + empWage);
+
+// UC5 - Calculate Wages till a condition of total working hours of 160 or max days of 20 is reached for a month
+const MAX_HRS_IN_MONTH = 100;
+let totalEmpHrs = 0;
+let totalWorkingDays = 0;
+while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS) {
+    totalWorkingDays++;
+    let empCheck = Math.floor(Math.random() * 10) % 3;
+    totalEmpHrs += getWorkingHours(empCheck);
+}
+empWage = totalEmpHrs * WAGE_PER_HOUR;
+console.log("UC5 - Total Days: " + totalWorkingDays +
+    " Total Hrs: " + totalEmpHrs + " Employee Wage: " + empWage);   
